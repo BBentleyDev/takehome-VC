@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Property model, with demographic data as a nested document
 const PropertySchema = new mongoose.Schema({
   name: {
     type: String,

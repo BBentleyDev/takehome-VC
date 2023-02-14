@@ -3,6 +3,7 @@ const apiBaseUrl = 'https://api.datapartners.com/v2/demographics?'
 const apiKey = process.env.API_KEY
 
 module.exports = {
+  // Update demographic data for a single property
     updateDemographics: async (req, res) => {
       try {
         const latitude = req.params.latitude;
@@ -18,7 +19,6 @@ module.exports = {
     
         const data = await response.json();
         
-        //Perhaps find using document object id as it is guaranteed to be unique
         const property = await Property.findOneAndUpdate({ latitude, longitude }, { $set: { demographicData: data }}, { new: true });
     
         res.send(property);
@@ -26,6 +26,7 @@ module.exports = {
         res.status(500).send(`Error fetching demographic data from API: ${err.message}`);
       }
     },
+    // Update demographic data of all properties in database
     updateAllDemographics: async (req, res) => {
       try {
         const properties = await Property.find({});
